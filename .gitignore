@@ -1,4 +1,5 @@
 /.idea
 .DS_Store
+composer.lock
 /pr-dhl-woocommerce/.idea
 /pr-dhl-woocommerce/.DS_Store

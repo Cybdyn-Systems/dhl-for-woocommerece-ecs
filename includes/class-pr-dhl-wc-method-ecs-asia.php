@@ -29,13 +29,10 @@ if (!class_exists('PR_DHL_WC_Method_eCS_Asia')) :
 			$this->method_description = sprintf(
 				__(
 					'To start creating DHL eCommerce shipping labels and provide Tracking Numbers to your customers, please fill in your credentials as shown in your contract provided by DHL.
-			<br />
-			Not yet a customer? Please get a quote %shere%s or if you need support on how to set up this plugin please click %shere%s.',
+					Not a DHL customer? Please request a business account %shere%s.',
 					'dhl-for-woocommerce'
 				),
-				'<a href="https://www.logistics.dhl/global-en/home/our-divisions/ecommerce/integration/contact-ecommerce-integration-get-a-quote.html?cid=referrer_3pv-signup_woocommerce_ecommerce-integration&SFL=v_signup-woocommerce" target="_blank">',
-				'</a>',
-				'<a href="https://www.logistics.dhl/global-en/home/our-divisions/ecommerce/integration/integration-channels/third-party-solutions/woocommerce.html?cid=referrer_docu_woocommerce_ecommerce-integration&SFL=v_woocommerce" target="_blank">',
+				'<a href="https://www.dhl.com/us-en/home/request-a-business-account.html#fs-step=select-product" target="_blank">',
 				'</a>'
 			);
 

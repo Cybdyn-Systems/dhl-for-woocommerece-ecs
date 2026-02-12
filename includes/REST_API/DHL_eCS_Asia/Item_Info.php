@@ -113,6 +113,15 @@ class Item_Info
 	public $isCrossBorder;
 
 	/**
+	 * The destination country code
+	 *
+	 * @since [*next-version*]
+	 *
+	 * @var string
+	 */
+	public $destinationCountry;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param array $args The arguments to parse.
@@ -127,6 +136,7 @@ class Item_Info
 		//$this->parse_args( $args );
 		$this->weightUom = $uom;
 		$this->isCrossBorder = $isCrossBorder;
+		$this->destinationCountry = isset($args['shipping_address']['country']) ? $args['shipping_address']['country'] : '';
 
 		$this->parse_args($args, $uom);
 
@@ -250,6 +260,13 @@ class Item_Info
 			'dhl_product' => array(
 				'rename' => 'product_code',
 				'error' => __('"DHL Product" is empty!', 'dhl-for-woocommerce'),
+				'sanitize' => function ($value) use ($self) {
+					// For United States, only PLT product is available
+					if ($self->destinationCountry === 'US') {
+						return 'PLT';
+					}
+					return $value;
+				}
 			),
 			'duties' => array(
 				'rename' => 'incoterm',
@@ -260,6 +277,13 @@ class Item_Info
 						throw new Exception(__('Shipment "Duties" is empty!', 'dhl-for-woocommerce'));
 					}
 				},
+				'sanitize' => function ($value) use ($self) {
+					// For United States, only DDP is accepted
+					if ($self->destinationCountry === 'US') {
+						return 'DDP';
+					}
+					return $value;
+				}
 			),
 			'items_value' => array(
 				'error' => __('Shipment "Value" is empty!', 'dhl-for-woocommerce'),
@@ -598,17 +622,32 @@ class Item_Info
 		return array(
 			'hs_code' => array(
 				'default' => '',
-				'validate' => function ($hs_code) {
+				'validate' => function ($hs_code) use ($self) {
 					$length = is_string($hs_code) ? strlen($hs_code) : 0;
 
-					if (empty($length)) {
-						return;
-					}
+					// For United States, 10-digit HS Code is mandatory
+					if ($self->destinationCountry === 'US') {
+						if (empty($length)) {
+							throw new Exception(
+								__('The HS Code is missing. This is mandatory for United States shipments and must be 10 digits. It can be added by editing the products shipping data', 'dhl-for-woocommerce')
+							);
+						}
+						if ($length !== 10) {
+							throw new Exception(
+								__('The HS Code for United States shipments must be exactly 10 digits', 'dhl-for-woocommerce')
+							);
+						}
+					} else {
+						// For other destinations
+						if (empty($length)) {
+							return;
+						}
 
-					if ($length < 6 || $length > 20) {
-						throw new Exception(
-							__('Item HS Code must be between 6 and 20 characters long', 'dhl-for-woocommerce')
-						);
+						if ($length < 6 || $length > 20) {
+							throw new Exception(
+								__('Item HS Code must be between 6 and 20 characters long', 'dhl-for-woocommerce')
+							);
+						}
 					}
 				},
 			),

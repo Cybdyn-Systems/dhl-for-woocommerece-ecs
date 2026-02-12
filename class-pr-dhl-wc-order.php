@@ -698,8 +698,8 @@ if (!class_exists('PR_DHL_WC_Order')) :
 			$billing_address = $order->get_address();
 			$shipping_address = $order->get_address('shipping');
 
-			// If DHL requires a city code for specific destinations, normalise it here
-			/*if (
+			// If DHL requires a city code for specific destinations, normalize here
+			if (
 				isset($shipping_address['country'], $shipping_address['city']) &&
 				$shipping_address['country'] === 'CA' &&
 				is_string($shipping_address['city'])
@@ -721,7 +721,7 @@ if (!class_exists('PR_DHL_WC_Order')) :
 						break;
 					}
 				}
-			}*/
+			}
 
 			// If shipping phone number doesn't exist, try to get billing phone number
 			if (empty($shipping_address['phone']) && !empty($billing_address['phone'])) {

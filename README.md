@@ -1,7 +1,7 @@
 # DHL for WooCommerce eCS Asia
 
 [![Version](https://img.shields.io/badge/version-1.1.3-blue.svg)](https://github.com/Cybdyn-Systems/dhl-for-woocommerece-ecs)
-[![License](https://img.shields.io/badge/license-GPLv2-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![License](https://img.shields.io/badge/license-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![WordPress](https://img.shields.io/badge/WordPress-4.1%2B-blue.svg)](https://wordpress.org/)
 [![WooCommerce](https://img.shields.io/badge/WooCommerce-3.0%2B-purple.svg)](https://woocommerce.com/)
 
@@ -50,8 +50,9 @@ For more detailed instructions on how to set up your store and configure the plu
 ## 📝 Changelog
 
 ### Version 1.1.3
-- **Fix:** PHPStorm reformatted the codebase using the included .editorconfig.
-- **Fix:** README.md overhauled.
+- **Fix:** Updated the API for USA shipments to handle their new tariff structure.
+- **Fix:** PHPStorm reformatted the entire codebase using the included ".editorconfig" file.
+- **Fix:** "README.md" overhauled.
 - **Fix:** Fixed a bug that prevented Canadian shipments from being created.
 - **Fix:** Outdated URL's updated.
 
