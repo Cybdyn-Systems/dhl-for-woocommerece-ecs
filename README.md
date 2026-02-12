@@ -33,11 +33,11 @@ The plugin is compatible with the following DHL service offerings depending on y
 
 ## 🚀 Installation & Configuration
 
-1. Download the plugin zip file from the GitHub repository.
+1. [Download](https://github.com/Cybdyn-Systems/dhl-for-woocommerece-ecs/releases) the latest ZIP file from the GitHub repository.
 2. In WordPress Admin, navigate to **Plugins → Add New** and click **Upload Plugin**.
-3. Upload the zip file directly and click **Install Now**.
+3. Upload the ZIP file directly and click **Install Now**.
 4. Activate the plugin through the **Plugins** screen.
-5. Navigate to **WooCommerce → Settings → Shipping** to configure DHL settings.
+5. Navigate to **WooCommerce → Settings → Shipping** to configure the DHL settings.
 
 ## 📞 Support
 
