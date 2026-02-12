@@ -21,7 +21,6 @@ The official DHL for WooCommerce eCommerce plugin allows you to automate your la
 ## 📖 Description
 
 The plugin is compatible with the following DHL service offerings depending on your origin country:
-
 - **DHL eCommerce Asia:** AU, CN, HK, IN, VN, TH, SG, MY
 
 ## ✨ Features
@@ -69,3 +68,8 @@ For more detailed instructions on how to set up your store and configure the plu
 
 ### Version 1.0
 - **Release:** Initial public release
+
+## Licenses
+**Barcode** support (C) 2013 David S. Tufts (MIT License).
+<br />
+**PDFMerger** by Jarrod Nettles December 2009 (Open Source).

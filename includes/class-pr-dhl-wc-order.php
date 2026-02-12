@@ -1,35 +1,4 @@
 <?php
-/**
- * Canadian city codes for DHL
- *
- * @package DHL-for-WooCommerce
- */
-
-defined('ABSPATH') || exit;
-
-return array(
-	'Calgary' => 'YYC',
-	'Edmonton' => 'YEG',
-	'Halifax' => 'YHZ',
-	'Hamilton' => 'YHM',
-	'Kitchener' => 'YKF',
-	'London' => 'YXU',
-	'Mississauga' => 'YYZ',
-	'Montreal' => 'YUL',
-	'Ottawa' => 'YOW',
-	'Quebec City' => 'YQB',
-	'Regina' => 'YQR',
-	'Saskatoon' => 'YXE',
-	'Toronto' => 'YYZ',
-	'Vancouver' => 'YVR',
-	'Victoria' => 'YYJ',
-	'Winnipeg' => 'YWG',
-	'St. John\'s' => 'YYT',
-	'Charlottetown' => 'YYG',
-	'Whitehorse' => 'YXY',
-	'Yellowknife' => 'YZF',
-	'Iqaluit' => 'YFB'
-);
 
 if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly

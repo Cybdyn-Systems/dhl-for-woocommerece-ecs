@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: DHL for WooCommerce eCS Asia
- * Plugin URI: https://github.com/shadimanna/dhl-for-woocommerece-ecs
+ * Plugin URI: https://github.com/Cybdyn-Systems/dhl-for-woocommerece-ecs
  * Description: WooCommerce integration for DHL eCommerce US & Asia
  * Author: DHL
- * Author URI: http://dhl.com/woocommerce
- * Version: 1.1.1
+ * Author URI: https://www.dhl.com/au-en/microsites/supply-chain/fulfillment-network/how-it-works/getting-started/fulfillment-for-woo-commerce.html
+ * Version: 1.1.3
  * Text Domain: dhl-for-woocommerce
  * Domain Path: /lang
  * WC requires at least: 3.0
@@ -142,8 +142,8 @@ if (!class_exists('PR_DHL_WC')) :
 			// Auto loader class
 			include_once('includes/class-pr-dhl-autoloader.php');
 			// Load abstract classes
-			include_once('includes/abstract-pr-dhl-wc-order.php');
-			include_once('includes/abstract-pr-dhl-wc-product.php');
+			include_once('includes/class-pr-dhl-wc-order.php');
+			include_once('includes/class-pr-dhl-wc-product.php');
 
 			// Composer autoloader
 			include_once('vendor/autoload.php');
