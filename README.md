@@ -69,7 +69,7 @@ For more detailed instructions on how to set up your store and configure the plu
 ### Version 1.0
 - **Release:** Initial public release
 
-## Licenses
+## 📜 Licenses
 **Barcode** support (C) 2013 David S. Tufts (MIT License).
 <br />
 **PDFMerger** by Jarrod Nettles December 2009 (Open Source).
