@@ -10,7 +10,8 @@ use PR\DHL\Utils\Args_Parser;
  *
  * @since [*next-version*]
  */
-class Item_Info {
+class Item_Info
+{
 
 	/**
 	 * The order id
@@ -114,64 +115,67 @@ class Item_Info {
 	/**
 	 * Constructor.
 	 *
-	 * @since [*next-version*]
-	 *
 	 * @param array $args The arguments to parse.
 	 * @param string $weightUom The units of measurement used for weights in the input args.
 	 *
 	 * @throws Exception If some data in $args did not pass validation.
+	 * @since [*next-version*]
+	 *
 	 */
-	public function __construct( $args, $uom, $isCrossBorder ) {
+	public function __construct($args, $uom, $isCrossBorder)
+	{
 		//$this->parse_args( $args );
-		$this->weightUom 	= $uom;
+		$this->weightUom = $uom;
 		$this->isCrossBorder = $isCrossBorder;
 
-		$this->parse_args( $args, $uom );
+		$this->parse_args($args, $uom);
 
 	}
 
 	/**
 	 * Parses the arguments and sets the instance's properties.
 	 *
-	 * @since [*next-version*]
-	 *
 	 * @param array $args The arguments to parse.
 	 *
 	 * @throws Exception If some data in $args did not pass validation.
+	 * @since [*next-version*]
+	 *
 	 */
-	protected function parse_args( $args ) {
+	protected function parse_args($args)
+	{
 
-		$settings = $args[ 'dhl_settings' ];
-		$recipient_info = $args[ 'shipping_address' ] + $settings;
-		$shipping_info = $args[ 'order_details' ] + $settings;
+		$settings = $args['dhl_settings'];
+		$recipient_info = $args['shipping_address'] + $settings;
+		$shipping_info = $args['order_details'] + $settings;
 		$items_info = $args['items'];
 
-		$this->body 			= Args_Parser::parse_args( $shipping_info, $this->get_body_info_schema() );
-		$this->shipment 		= Args_Parser::parse_args( $shipping_info, $this->get_shipment_info_schema() );
-		$this->consignee 		= Args_Parser::parse_args( $recipient_info, $this->get_recipient_info_schema() );
+		$this->body = Args_Parser::parse_args($shipping_info, $this->get_body_info_schema());
+		$this->shipment = Args_Parser::parse_args($shipping_info, $this->get_shipment_info_schema());
+		$this->consignee = Args_Parser::parse_args($recipient_info, $this->get_recipient_info_schema());
 
-		if( $args['order_details']['dhl_product'] == 'SDP') {
-		    $this->shipper 			= Args_Parser::parse_args( $settings, $this->get_shipper_info_schema() );
-        }
-
-		if ( $this->isCrossBorder ) {
-			$this->shipper_address_w_tax = Args_Parser::parse_args( $settings, $this->get_shipper_address_w_tax_info_schema() );
+		if ($args['order_details']['dhl_product'] == 'SDP') {
+			$this->shipper = Args_Parser::parse_args($settings, $this->get_shipper_info_schema());
 		}
 
-		$this->contents 		= array();
-		foreach ( $items_info as $item_info ) {
-			$this->contents[] = Args_Parser::parse_args( $item_info, $this->get_content_item_info_schema() );
+		if ($this->isCrossBorder) {
+			$this->shipper_address_w_tax = Args_Parser::parse_args($settings, $this->get_shipper_address_w_tax_info_schema());
+		}
+
+		$this->contents = array();
+		foreach ($items_info as $item_info) {
+			$this->contents[] = Args_Parser::parse_args($item_info, $this->get_content_item_info_schema());
 		}
 	}
 
 	/**
 	 * Retrieves the args scheme to use with {@link Args_Parser} for header info.
 	 *
+	 * @return array
 	 * @since [*next-version*]
 	 *
-	 * @return array
 	 */
-	protected function get_body_info_schema() {
+	protected function get_body_info_schema()
+	{
 
 		// Closures in PHP 5.3 do not inherit class context
 		// So we need to copy $this into a lexical variable and pass it to closures manually
@@ -193,131 +197,132 @@ class Item_Info {
 	/**
 	 * Retrieves the args scheme to use with {@link Args_Parser} for base item info.
 	 *
+	 * @return array
 	 * @since [*next-version*]
 	 *
-	 * @return array
 	 */
-	protected function get_shipment_info_schema() {
+	protected function get_shipment_info_schema()
+	{
 
 		// Closures in PHP 5.3 do not inherit class context
 		// So we need to copy $this into a lexical variable and pass it to closures manually
 		$self = $this;
 
 		return array(
-			'order_id'      => array(
-				'error'  => __( 'Shipment "Order ID" is empty!', 'dhl-for-woocommerce' ),
+			'order_id' => array(
+				'error' => __('Shipment "Order ID" is empty!', 'dhl-for-woocommerce'),
 			),
-			'prefix' 		=> array(
+			'prefix' => array(
 				'default' => 'DHL'
 			),
-			'description' 	=> array(
-			    'default'   => '',
-				'validate' => function( $value ) {
+			'description' => array(
+				'default' => '',
+				'validate' => function ($value) {
 
-					if( empty( $value ) && $this->isCrossBorder ) {
-						throw new Exception( __( 'Shipment "Description" is empty!', 'dhl-for-woocommerce' ) );
+					if (empty($value) && $this->isCrossBorder) {
+						throw new Exception(__('Shipment "Description" is empty!', 'dhl-for-woocommerce'));
 					}
 				},
 			),
-			'weight'     => array(
-                'error'    => __( 'Order "Weight" is empty!', 'dhl-for-woocommerce' ),
-                'validate' => function( $weight ) use ($self) {
-                    if ( ! is_numeric( $weight ) || $weight <= 0 ) {
-                        throw new Exception( __( 'The order "Weight" must be a positive number', 'dhl-for-woocommerce' ) );
-                    }
-                },
-                'sanitize' => function ( $weight ) use ($self) {
+			'weight' => array(
+				'error' => __('Order "Weight" is empty!', 'dhl-for-woocommerce'),
+				'validate' => function ($weight) use ($self) {
+					if (!is_numeric($weight) || $weight <= 0) {
+						throw new Exception(__('The order "Weight" must be a positive number', 'dhl-for-woocommerce'));
+					}
+				},
+				'sanitize' => function ($weight) use ($self) {
 
-                    $weight = $self->maybe_convert_to_grams( $weight, $self->weightUom );
+					$weight = $self->maybe_convert_to_grams($weight, $self->weightUom);
 
-                    return $weight;
-                }
-			),
-			'weightUom'  => array(
-				'sanitize' => function ( $uom ) use ($self) {
-
-					return ( $uom != 'G' )? 'G' : $uom;
+					return $weight;
 				}
 			),
-			'dimensionUom'     => array(
+			'weightUom' => array(
+				'sanitize' => function ($uom) use ($self) {
+
+					return ($uom != 'G') ? 'G' : $uom;
+				}
+			),
+			'dimensionUom' => array(
 				'default' => 'CM'
 			),
 			'dhl_product' => array(
-				'rename' 	=> 'product_code',
-                'error'     => __( '"DHL Product" is empty!', 'dhl-for-woocommerce' ),
+				'rename' => 'product_code',
+				'error' => __('"DHL Product" is empty!', 'dhl-for-woocommerce'),
 			),
 			'duties' => array(
-				'rename' 	=> 'incoterm',
-				'default' 	=> '',
-				'validate' => function( $value ) {
+				'rename' => 'incoterm',
+				'default' => '',
+				'validate' => function ($value) {
 
-					if( empty( $value ) && $this->isCrossBorder ) {
-						throw new Exception( __( 'Shipment "Duties" is empty!', 'dhl-for-woocommerce' ) );
+					if (empty($value) && $this->isCrossBorder) {
+						throw new Exception(__('Shipment "Duties" is empty!', 'dhl-for-woocommerce'));
 					}
 				},
 			),
 			'items_value' => array(
-				'error'  => __( 'Shipment "Value" is empty!', 'dhl-for-woocommerce' ),
-				'validate' => function( $value ) {
-					if ( ! is_numeric( $value ) ) {
-						throw new Exception( __( 'The order "value" must be a number', 'dhl-for-woocommerce' ) );
+				'error' => __('Shipment "Value" is empty!', 'dhl-for-woocommerce'),
+				'validate' => function ($value) {
+					if (!is_numeric($value)) {
+						throw new Exception(__('The order "value" must be a number', 'dhl-for-woocommerce'));
 					}
 				},
-				'sanitize' => function( $value ) use ($self) {
+				'sanitize' => function ($value) use ($self) {
 
-					return $self->float_round_sanitization( $value, 2 );
+					return $self->float_round_sanitization($value, 2);
 				}
 			),
 			'currency' => array(
-				'error' => __( 'Shop "Currency" is empty!', 'dhl-for-woocommerce' ),
+				'error' => __('Shop "Currency" is empty!', 'dhl-for-woocommerce'),
 			),
-            'cod_value' => array(
-                'default' => 0,
-                'rename' => 'codValue',
-                'sanitize' => function( $value, $args ) use ($self) {
-                    if( isset( $args['is_cod'] ) && $args['is_cod'] == 'yes' ) {
-                        $value = $self->float_round_sanitization( $value, 2 );
-                    } else {
-                        $value = 0;
-                    }
-                    return $value;
-                }
+			'cod_value' => array(
+				'default' => 0,
+				'rename' => 'codValue',
+				'sanitize' => function ($value, $args) use ($self) {
+					if (isset($args['is_cod']) && $args['is_cod'] == 'yes') {
+						$value = $self->float_round_sanitization($value, 2);
+					} else {
+						$value = 0;
+					}
+					return $value;
+				}
 			),
-            'order_note' => array(
-                'default' => '',
-                'rename' => 'remarks'
-            ),
+			'order_note' => array(
+				'default' => '',
+				'rename' => 'remarks'
+			),
 			'insurance_value' => array(
 				'default' => 0,
-                'rename' => 'insuranceValue',
-                'validate' => function( $value, $args ) {
-                    if( isset( $args['additional_insurance'] ) && $args['additional_insurance'] == 'yes' && empty( $value ) ) {
-                        throw new Exception( __( 'The "Insurance Value" cannot be empty', 'dhl-for-woocommerce' ) );
-                    }
-                },
-                'sanitize' => function( $value, $args ) use ($self) {
-                    if( isset( $args['additional_insurance'] ) && $args['additional_insurance'] == 'yes' ) {
+				'rename' => 'insuranceValue',
+				'validate' => function ($value, $args) {
+					if (isset($args['additional_insurance']) && $args['additional_insurance'] == 'yes' && empty($value)) {
+						throw new Exception(__('The "Insurance Value" cannot be empty', 'dhl-for-woocommerce'));
+					}
+				},
+				'sanitize' => function ($value, $args) use ($self) {
+					if (isset($args['additional_insurance']) && $args['additional_insurance'] == 'yes') {
 
-                        $value = $self->float_round_sanitization( $value, 2 );
+						$value = $self->float_round_sanitization($value, 2);
 
 					} else {
-                        $value = 0;
-                    }
-                    return $value;
-                }
+						$value = 0;
+					}
+					return $value;
+				}
 			),
 			'obox_service' => array(
-                'default' => '',
-                'sanitize' => function( $value ) use ($self) {
+				'default' => '',
+				'sanitize' => function ($value) use ($self) {
 
-                    if ( isset( $value ) && $value == 'yes') {
-                        $value = 'OBOX';
-                    } else {
-                        $value = '';
-                    }
+					if (isset($value) && $value == 'yes') {
+						$value = 'OBOX';
+					} else {
+						$value = '';
+					}
 
-                    return $value;
-                }
+					return $value;
+				}
 			),
 			'dangerous_goods' => array(
 				'default' => ''
@@ -328,66 +333,67 @@ class Item_Info {
 	/**
 	 * Retrieves the args scheme to use with {@link Args_Parser} for parsing order recipient info.
 	 *
+	 * @return array
 	 * @since [*next-version*]
 	 *
-	 * @return array
 	 */
-	protected function get_recipient_info_schema() {
+	protected function get_recipient_info_schema()
+	{
 
 		// Closures in PHP 5.3 do not inherit class context
 		// So we need to copy $this into a lexical variable and pass it to closures manually
 		$self = $this;
 
 		return array(
-			'name'      => array(
-				'error'  => __( 'Recipient is empty!', 'dhl-for-woocommerce' ),
-				'sanitize' => function( $name ) use ($self) {
+			'name' => array(
+				'error' => __('Recipient is empty!', 'dhl-for-woocommerce'),
+				'sanitize' => function ($name) use ($self) {
 
-					return $self->string_length_sanitization( $name, 30 );
+					return $self->string_length_sanitization($name, 30);
 				}
 			),
-			'phone'     => array(
+			'phone' => array(
 				'default' => '',
-				'sanitize' => function( $phone ) use ($self) {
+				'sanitize' => function ($phone) use ($self) {
 
-					return $self->string_length_sanitization( $phone, 15 );
+					return $self->string_length_sanitization($phone, 15);
 				}
 			),
-			'company'   => array(
+			'company' => array(
 				'default' => '',
-				'rename'  => 'companyName',
+				'rename' => 'companyName',
 			),
-			'email'     => array(
+			'email' => array(
 				'default' => '',
 			),
 			'address_1' => array(
 				'rename' => 'address1',
-				'error' => __( 'Shipping "Address 1" is empty!', 'dhl-for-woocommerce' ),
+				'error' => __('Shipping "Address 1" is empty!', 'dhl-for-woocommerce'),
 			),
 			'address_2' => array(
 				'rename' => 'address2',
 				'default' => '',
 			),
-			'city'      => array(
-                'validate' => function( $value ) {
+			'city' => array(
+				'validate' => function ($value) {
 
-                    if( empty( $value ) && $this->isCrossBorder ) {
-                        throw new Exception( __( 'Shipping "City" is empty!', 'dhl-for-woocommerce' ) );
-                    }
-                },
+					if (empty($value) && $this->isCrossBorder) {
+						throw new Exception(__('Shipping "City" is empty!', 'dhl-for-woocommerce'));
+					}
+				},
 			),
-			'postcode'  => array(
+			'postcode' => array(
 				'rename' => 'postCode',
-				'error' => __( 'Shipping "Postcode" is empty!', 'dhl-for-woocommerce' ),
+				'error' => __('Shipping "Postcode" is empty!', 'dhl-for-woocommerce'),
 			),
 			'district' => array(
 				'default' => ''
 			),
-			'state'     => array(
+			'state' => array(
 				'default' => '',
 			),
-			'country'   => array(
-				'error' => __( 'Shipping "Country" is empty!', 'dhl-for-woocommerce' ),
+			'country' => array(
+				'error' => __('Shipping "Country" is empty!', 'dhl-for-woocommerce'),
 			),
 		);
 	}
@@ -395,76 +401,77 @@ class Item_Info {
 	/**
 	 * Retrieves the args scheme to use with {@link Args_Parser} for parsing order pickup shipment info.
 	 *
+	 * @return array
 	 * @since [*next-version*]
 	 *
-	 * @return array
 	 */
-	protected function get_shipper_info_schema() {
+	protected function get_shipper_info_schema()
+	{
 
 		// Closures in PHP 5.3 do not inherit class context
 		// So we need to copy $this into a lexical variable and pass it to closures manually
 		$self = $this;
 
 		return array(
-			'dhl_contact_name'      => array(
+			'dhl_contact_name' => array(
 				'rename' => 'name',
-				'error'  => __( '"Account Name" in settings is empty.', 'dhl-for-woocommerce' ),
-				'sanitize' => function( $name ) use ($self) {
+				'error' => __('"Account Name" in settings is empty.', 'dhl-for-woocommerce'),
+				'sanitize' => function ($name) use ($self) {
 
-                    if (empty($name)) {
-                        throw new Exception(
-                            __( '"Account Name" in settings is empty.', 'dhl-for-woocommerce' )
-                        );
-                    }
+					if (empty($name)) {
+						throw new Exception(
+							__('"Account Name" in settings is empty.', 'dhl-for-woocommerce')
+						);
+					}
 
-					return $self->string_length_sanitization( $name, 30 );
+					return $self->string_length_sanitization($name, 30);
 				}
 			),
-			'dhl_phone'     => array(
+			'dhl_phone' => array(
 				'rename' => 'phone',
 				'default' => '',
 			),
-			'dhl_email'     => array(
+			'dhl_email' => array(
 				'rename' => 'email',
 				'default' => '',
 			),
 			'dhl_address_1' => array(
 				'rename' => 'address1',
-				'error' => __( 'Base "Address 1" is empty!', 'dhl-for-woocommerce' ),
-                'sanitize' => function( $name ) use ($self) {
+				'error' => __('Base "Address 1" is empty!', 'dhl-for-woocommerce'),
+				'sanitize' => function ($name) use ($self) {
 
-                    if (empty($name)) {
-                        throw new Exception(
-                            __( 'Base "Address 1" is empty!', 'dhl-for-woocommerce' )
-                        );
-                    }
+					if (empty($name)) {
+						throw new Exception(
+							__('Base "Address 1" is empty!', 'dhl-for-woocommerce')
+						);
+					}
 
-                    return $self->string_length_sanitization( $name, 50 );
-                }
+					return $self->string_length_sanitization($name, 50);
+				}
 			),
 			'dhl_address_2' => array(
 				'rename' => 'address2',
 				'default' => '',
 			),
-			'dhl_city'      => array(
+			'dhl_city' => array(
 				'rename' => 'city',
-				'error' => __( 'Base "City" is empty!', 'dhl-for-woocommerce' ),
+				'error' => __('Base "City" is empty!', 'dhl-for-woocommerce'),
 			),
-			'dhl_district'     => array(
+			'dhl_district' => array(
 				'rename' => 'district',
 				'default' => '',
 			),
-			'dhl_postcode'  => array(
+			'dhl_postcode' => array(
 				'rename' => 'postCode',
-				'error' => __( 'Base "Postcode" is empty!', 'dhl-for-woocommerce' ),
+				'error' => __('Base "Postcode" is empty!', 'dhl-for-woocommerce'),
 			),
-			'dhl_state'     => array(
+			'dhl_state' => array(
 				'rename' => 'state',
 				'default' => '',
 			),
-			'dhl_country'   => array(
+			'dhl_country' => array(
 				'rename' => 'country',
-				'error' => __( 'Base "Country" is empty!', 'dhl-for-woocommerce' ),
+				'error' => __('Base "Country" is empty!', 'dhl-for-woocommerce'),
 			)
 		);
 	}
@@ -472,115 +479,115 @@ class Item_Info {
 	/**
 	 * Retrieves the args scheme to use with {@link Args_Parser} for parsing order shipper tax info.
 	 *
+	 * @return array
 	 * @since [*next-version*]
 	 *
-	 * @return array
 	 */
-	protected function get_shipper_address_w_tax_info_schema() {
+	protected function get_shipper_address_w_tax_info_schema()
+	{
 
 		// Closures in PHP 5.3 do not inherit class context
 		// So we need to copy $this into a lexical variable and pass it to closures manually
 		$self = $this;
 
 		return array(
-			'dhl_contact_name'      => array(
+			'dhl_contact_name' => array(
 				'rename' => 'name',
-				'error'  => __( '"Account Name" in settings is empty.', 'dhl-for-woocommerce' ),
-				'sanitize' => function( $name ) use ($self) {
+				'error' => __('"Account Name" in settings is empty.', 'dhl-for-woocommerce'),
+				'sanitize' => function ($name) use ($self) {
 
-                    if (empty($name)) {
-                        throw new Exception(
-                            __( '"Account Name" in settings is empty.', 'dhl-for-woocommerce' )
-                        );
-                    }
+					if (empty($name)) {
+						throw new Exception(
+							__('"Account Name" in settings is empty.', 'dhl-for-woocommerce')
+						);
+					}
 
-					return $self->string_length_sanitization( $name, 30 );
+					return $self->string_length_sanitization($name, 30);
 				}
 			),
-			'dhl_phone'     => array(
+			'dhl_phone' => array(
 				'rename' => 'phone',
 				'default' => '',
 			),
-			'dhl_email'     => array(
+			'dhl_email' => array(
 				'rename' => 'email',
 				'default' => '',
 			),
 			'dhl_address_1' => array(
 				'rename' => 'address1',
-				'error' => __( 'Base "Address 1" is empty!', 'dhl-for-woocommerce' ),
-                'sanitize' => function( $name ) use ($self) {
+				'error' => __('Base "Address 1" is empty!', 'dhl-for-woocommerce'),
+				'sanitize' => function ($name) use ($self) {
 
-                    if (empty($name)) {
-                        throw new Exception(
-                            __( 'Base "Address 1" is empty!', 'dhl-for-woocommerce' )
-                        );
-                    }
+					if (empty($name)) {
+						throw new Exception(
+							__('Base "Address 1" is empty!', 'dhl-for-woocommerce')
+						);
+					}
 
-                    return $self->string_length_sanitization( $name, 50 );
-                }
+					return $self->string_length_sanitization($name, 50);
+				}
 			),
 			'dhl_address_2' => array(
 				'rename' => 'address2',
 				'default' => '',
 			),
-			'dhl_city'      => array(
+			'dhl_city' => array(
 				'rename' => 'city',
-				'error' => __( 'Base "City" is empty!', 'dhl-for-woocommerce' ),
+				'error' => __('Base "City" is empty!', 'dhl-for-woocommerce'),
 			),
-			'dhl_district'     => array(
+			'dhl_district' => array(
 				'rename' => 'district',
 				'default' => '',
 			),
-			'dhl_postcode'  => array(
+			'dhl_postcode' => array(
 				'rename' => 'postCode',
-				'error' => __( 'Base "Postcode" is empty!', 'dhl-for-woocommerce' ),
+				'error' => __('Base "Postcode" is empty!', 'dhl-for-woocommerce'),
 			),
-			'dhl_state'     => array(
+			'dhl_state' => array(
 				'rename' => 'state',
 				'default' => '',
 			),
-			'dhl_country'   => array(
+			'dhl_country' => array(
 				'rename' => 'country',
-				'error' => __( 'Base "Country" is empty!', 'dhl-for-woocommerce' ),
+				'error' => __('Base "Country" is empty!', 'dhl-for-woocommerce'),
 			),
-			'dh_tax_id_type'   => array(
+			'dh_tax_id_type' => array(
 				'rename' => 'fiscalIdType',
-				'error' => __( 'You must select a "Shipper Tax ID Type", or select "-- No Shipper Tax ID --" to continue without a Shipper Tax ID.', 'dhl-for-woocommerce' ),
-				'sanitize' => function( $value, $args ) use ($self) {
-					if ( $value == 'none' ) {
+				'error' => __('You must select a "Shipper Tax ID Type", or select "-- No Shipper Tax ID --" to continue without a Shipper Tax ID.', 'dhl-for-woocommerce'),
+				'sanitize' => function ($value, $args) use ($self) {
+					if ($value == 'none') {
 						return '';
 					} else {
-						return $self->string_length_sanitization( $value, 50 );
+						return $self->string_length_sanitization($value, 50);
 					}
 
-                }
+				}
 			),
 			'dh_tax_id' => array(
 				'default' => '',
 				'rename' => 'fiscalId',
-				'validate' => function( $value, $args ) {
-                    if( isset( $args['dh_tax_id_type'] ) && $args['dh_tax_id_type'] != 'none' && $args['dh_tax_id_type'] != 4 && empty( $value ) ) {
-                        throw new Exception (
-							__( 'You must provide a "Shipper Tax ID", or to continue without a Shipper Tax ID you must select "-- No Shipper Tax ID --" for "Shipper Tax ID Type"."', 'dhl-for-woocommerce' )
+				'validate' => function ($value, $args) {
+					if (isset($args['dh_tax_id_type']) && $args['dh_tax_id_type'] != 'none' && $args['dh_tax_id_type'] != 4 && empty($value)) {
+						throw new Exception (
+							__('You must provide a "Shipper Tax ID", or to continue without a Shipper Tax ID you must select "-- No Shipper Tax ID --" for "Shipper Tax ID Type"."', 'dhl-for-woocommerce')
 						);
-                    }
-                },
-                'sanitize' => function( $value, $args ) use ($self) {
-                    return $self->string_length_sanitization( $value, 50 );
-                }
+					}
+				},
+				'sanitize' => function ($value, $args) use ($self) {
+					return $self->string_length_sanitization($value, 50);
+				}
 			),
 
 		);
 	}
 
 
-
 	/**
 	 * Retrieves the args scheme to use with {@link Args_Parser} for parsing order content item info.
 	 *
+	 * @return array
 	 * @since [*next-version*]
 	 *
-	 * @return array
 	 */
 	protected function get_content_item_info_schema()
 	{
@@ -589,18 +596,18 @@ class Item_Info {
 		$self = $this;
 
 		return array(
-			'hs_code'     => array(
-				'default'  => '',
-				'validate' => function( $hs_code ) {
-					$length = is_string( $hs_code ) ? strlen( $hs_code ) : 0;
+			'hs_code' => array(
+				'default' => '',
+				'validate' => function ($hs_code) {
+					$length = is_string($hs_code) ? strlen($hs_code) : 0;
 
 					if (empty($length)) {
 						return;
 					}
 
-					if ( $length < 6 || $length > 20 ) {
+					if ($length < 6 || $length > 20) {
 						throw new Exception(
-							__( 'Item HS Code must be between 6 and 20 characters long', 'dhl-for-woocommerce' )
+							__('Item HS Code must be between 6 and 20 characters long', 'dhl-for-woocommerce')
 						);
 					}
 				},
@@ -608,54 +615,54 @@ class Item_Info {
 			'item_description' => array(
 				'rename' => 'description',
 				'default' => '',
-				'sanitize' => function( $description ) use ($self) {
+				'sanitize' => function ($description) use ($self) {
 
-					return $self->string_length_sanitization( $description, 50 );
+					return $self->string_length_sanitization($description, 50);
 				}
 			),
-            'item_export' => array(
+			'item_export' => array(
 				'rename' => 'descriptionExport',
 				'default' => '',
-				'sanitize' => function( $description ) use ($self) {
+				'sanitize' => function ($description) use ($self) {
 
-					return $self->string_length_sanitization( $description, 50 );
+					return $self->string_length_sanitization($description, 50);
 				}
 			),
-			'product_id'  => array(
-				'error' => __( 'Item "Product ID" is empty!', 'dhl-for-woocommerce' ),
+			'product_id' => array(
+				'error' => __('Item "Product ID" is empty!', 'dhl-for-woocommerce'),
 			),
-			'sku'         => array(
-				'error' => __( 'Item "Product SKU" is empty!', 'dhl-for-woocommerce' ),
+			'sku' => array(
+				'error' => __('Item "Product SKU" is empty!', 'dhl-for-woocommerce'),
 			),
-			'item_value'       => array(
+			'item_value' => array(
 				'rename' => 'value',
 				'default' => 0,
-				'sanitize' => function( $value ) use ($self) {
+				'sanitize' => function ($value) use ($self) {
 
-					return $self->float_round_sanitization( $value, 2 );
+					return $self->float_round_sanitization($value, 2);
 				}
 			),
-			'origin'      => array(
+			'origin' => array(
 				'default' => PR_DHL()->get_base_country(),
 			),
-			'qty'         => array(
-				'validate' => function( $qty ) {
+			'qty' => array(
+				'validate' => function ($qty) {
 
-					if( !is_numeric( $qty ) || $qty < 1 ){
+					if (!is_numeric($qty) || $qty < 1) {
 
 						throw new Exception(
-							__( 'Item quantity must be more than 1', 'dhl-for-woocommerce' )
+							__('Item quantity must be more than 1', 'dhl-for-woocommerce')
 						);
 
 					}
 				},
 			),
-			'item_weight'      => array(
+			'item_weight' => array(
 				'rename' => 'weight',
-				'sanitize' => function ( $weight ) use ($self) {
+				'sanitize' => function ($weight) use ($self) {
 
-					$weight = $self->maybe_convert_to_grams( $weight, $self->weightUom );
-					$weight = ( $weight > 1 )? $weight : 1;
+					$weight = $self->maybe_convert_to_grams($weight, $self->weightUom);
+					$weight = ($weight > 1) ? $weight : 1;
 					return $weight;
 				}
 			)
@@ -665,17 +672,18 @@ class Item_Info {
 	/**
 	 * Converts a given weight into grams, if necessary.
 	 *
-	 * @since [*next-version*]
-	 *
 	 * @param float $weight The weight amount.
 	 * @param string $uom The unit of measurement of the $weight parameter..
 	 *
 	 * @return float The potentially converted weight.
+	 * @since [*next-version*]
+	 *
 	 */
-	protected function maybe_convert_to_grams( $weight, $uom ) {
-		$weight = floatval( $weight );
+	protected function maybe_convert_to_grams($weight, $uom)
+	{
+		$weight = floatval($weight);
 
-		switch ( $uom ) {
+		switch ($uom) {
 			case 'kg':
 				$weight = $weight * 1000;
 				break;
@@ -687,26 +695,28 @@ class Item_Info {
 				break;
 		}
 
-		return round( $weight );
+		return round($weight);
 	}
 
-	protected function float_round_sanitization( $float, $numcomma ) {
+	protected function float_round_sanitization($float, $numcomma)
+	{
 
-		$float = floatval( $float );
+		$float = floatval($float);
 
-		return round( $float, $numcomma);
+		return round($float, $numcomma);
 	}
 
-	protected function string_length_sanitization( $string, $max ) {
+	protected function string_length_sanitization($string, $max)
+	{
 
-		$max = intval( $max );
+		$max = intval($max);
 
-		if( strlen( $string ) <= $max ){
+		if (strlen($string) <= $max) {
 
 			return $string;
 		}
 
-		return substr( $string, 0, ( $max-1 ));
+		return substr($string, 0, ($max - 1));
 	}
 
 }

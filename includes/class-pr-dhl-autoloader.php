@@ -1,7 +1,6 @@
 <?php
 
-if (!defined('ABSPATH'))
-{
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -30,7 +29,7 @@ class PR_DHL_Autoloader
 	/**
 	 * Take a class name and turn it into a file name.
 	 *
-	 * @param  string $class
+	 * @param string $class
 	 * @return string
 	 */
 	private function get_file_name_from_class($class)
@@ -41,13 +40,12 @@ class PR_DHL_Autoloader
 	/**
 	 * Include a class file.
 	 *
-	 * @param  string $path
+	 * @param string $path
 	 * @return bool successful or not
 	 */
 	private function load_file($path)
 	{
-		if ($path && is_readable($path))
-		{
+		if ($path && is_readable($path)) {
 			include_once($path);
 			return true;
 		}
@@ -62,22 +60,19 @@ class PR_DHL_Autoloader
 	public function autoload($class)
 	{
 		$class = strtolower($class);
-		$file  = $this->get_file_name_from_class($class);
-		$path  = '';
+		$file = $this->get_file_name_from_class($class);
+		$path = '';
 
-		if (strpos($class, 'pr_dhl_api') === 0)
-		{
+		if (strpos($class, 'pr_dhl_api') === 0) {
 			$path = $this->include_path . 'pr-dhl-api/';
 		}
 
-		if (strpos($class, 'front_end') !== false)
-		{
+		if (strpos($class, 'front_end') !== false) {
 			$path = $this->include_path . 'front-end/';
 		}
 
 		// If the path is empty -> not DHL API class, or class couldn't load, try parent dir load
-		if (empty($path) || !$this->load_file($path . $file))
-		{
+		if (empty($path) || !$this->load_file($path . $file)) {
 			$this->load_file($this->include_path . $file);
 		}
 	}

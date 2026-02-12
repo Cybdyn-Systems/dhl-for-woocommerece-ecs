@@ -1,3 +1,3 @@
-<?php defined( 'ABSPATH' ) or exit; ?>
-	</body>
+<?php defined('ABSPATH') or exit; ?>
+</body>
 </html>

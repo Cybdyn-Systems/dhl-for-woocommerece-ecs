@@ -7,7 +7,8 @@ namespace PR\DHL\REST_API;
  *
  * @since [*next-version*]
  */
-class Request {
+class Request
+{
 	/**
 	 * Constant for GET requests.
 	 *
@@ -91,14 +92,14 @@ class Request {
 	/**
 	 * Constructor.
 	 *
+	 * @param int $type The request type.
+	 * @param string $url The base URL where the request will be made.
+	 * @param array $params The GET params for this request.
+	 * @param mixed|null $body The body of the request.
+	 * @param array $headers The request headers to send.
+	 * @param array $cookies The request cookies to send.
 	 * @since [*next-version*]
 	 *
-	 * @param int        $type    The request type.
-	 * @param string     $url     The base URL where the request will be made.
-	 * @param array      $params  The GET params for this request.
-	 * @param mixed|null $body    The body of the request.
-	 * @param array      $headers The request headers to send.
-	 * @param array      $cookies The request cookies to send.
 	 */
 	public function __construct(
 		$type,
@@ -107,7 +108,8 @@ class Request {
 		$body = null,
 		array $headers = array(),
 		array $cookies = array()
-	) {
+	)
+	{
 		$this->type = $type;
 		$this->url = $url;
 		$this->params = $params;

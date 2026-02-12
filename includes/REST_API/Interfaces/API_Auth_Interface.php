@@ -40,15 +40,16 @@ use PR\DHL\REST_API\Request;
  *
  * @see Request
  */
-interface API_Auth_Interface {
+interface API_Auth_Interface
+{
 	/**
 	 * Adds authentication details to a given request.
-	 *
-	 * @since [*next-version*]
 	 *
 	 * @param Request $request The request to modify with authentication details.
 	 *
 	 * @return Request The new request.
+	 * @since [*next-version*]
+	 *
 	 */
-	public function authorize( Request $request );
+	public function authorize(Request $request);
 }

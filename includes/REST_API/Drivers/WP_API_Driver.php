@@ -20,55 +20,58 @@ use RuntimeException;
  *
  * @see API_Driver_Interface
  */
-class WP_API_Driver implements API_Driver_Interface {
-    // Set request timeout to 30 seconds, default of 5 is to small
-    const WP_REQUEST_TIMEOUT = 30;
+class WP_API_Driver implements API_Driver_Interface
+{
+	// Set request timeout to 30 seconds, default of 5 is to small
+	const WP_REQUEST_TIMEOUT = 30;
+
 	/**
 	 * {@inheritdoc}
 	 *
 	 * @since [*next-version*]
 	 */
-	public function send( Request $request ) {
+	public function send(Request $request)
+	{
 		// Send the request
 		$response = wp_remote_request(
 			$request->url,
 			array(
-				'method'  => ( $request->type === Request::TYPE_GET ) ? 'GET' : 'POST',
-				'body'    => $request->body,
+				'method' => ($request->type === Request::TYPE_GET) ? 'GET' : 'POST',
+				'body' => $request->body,
 				'headers' => $request->headers,
 				'cookies' => $request->cookies,
-                'timeout' => self::WP_REQUEST_TIMEOUT,
+				'timeout' => self::WP_REQUEST_TIMEOUT,
 			)
 		);
 
 		// Check if an error occurred
-		if ( is_wp_error( $response ) ) {
-			throw new RuntimeException( __( $response->get_error_message() ) );
+		if (is_wp_error($response)) {
+			throw new RuntimeException(__($response->get_error_message()));
 		}
 
 		// Retrieve the headers from the response
-		$raw_headers = wp_remote_retrieve_headers( $response );
+		$raw_headers = wp_remote_retrieve_headers($response);
 		$headers = array();
 
 		// Ensures that the headers use the correct casing
-		foreach ( $raw_headers as $header => $value ) {
+		foreach ($raw_headers as $header => $value) {
 			// 1. split the header name by dashes
-			$header_parts = explode( '-', $header );
+			$header_parts = explode('-', $header);
 			// 2. upper-case the first letter of each part
-			$uc_parts = array_map( 'ucfirst', $header_parts );
+			$uc_parts = array_map('ucfirst', $header_parts);
 			// 3. combine the parts back again using dashes
-			$fixed_header = implode( '-', $uc_parts );
+			$fixed_header = implode('-', $uc_parts);
 
-			$headers[ $fixed_header ] = $value;
+			$headers[$fixed_header] = $value;
 		}
 
 		// Create and return the response object
 		return new Response(
 			$request,
-			wp_remote_retrieve_response_code( $response ),
-			wp_remote_retrieve_body( $response ),
+			wp_remote_retrieve_response_code($response),
+			wp_remote_retrieve_body($response),
 			$headers,
-			wp_remote_retrieve_cookies( $response )
+			wp_remote_retrieve_cookies($response)
 		);
 	}
 }

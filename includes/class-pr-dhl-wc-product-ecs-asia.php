@@ -1,7 +1,6 @@
 <?php
 
-if (!defined('ABSPATH'))
-{
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 
@@ -33,15 +32,12 @@ if (!class_exists('PR_DHL_WC_Product_eCS_Asia')) :
 
 			$content_indicators = array('0' => __('- select content indicator -', 'dhl-for-woocommerce'));
 
-			try
-			{
+			try {
 
 				$dhl_obj = PR_DHL()->get_dhl_factory();
 
 				$content_indicators += $dhl_obj->get_dhl_content_indicator();
-			}
-			catch (Exception $e)
-			{
+			} catch (Exception $e) {
 
 				echo '<p class="wc_dhl_error">' . esc_html($e->getMessage()) . '</p>';
 			}
@@ -53,7 +49,7 @@ if (!class_exists('PR_DHL_WC_Product_eCS_Asia')) :
 					'description' => __('The content indicator is used as dangerous goods classifier required for air transport.', 'dhl-for-woocommerce'),
 					'desc_tip' => 'true',
 					/*'value' => $country_value,*/
-					'options'    => $content_indicators
+					'options' => $content_indicators
 				)
 			);
 
@@ -64,7 +60,7 @@ if (!class_exists('PR_DHL_WC_Product_eCS_Asia')) :
 					'description' => __('Product description to faciliate cross-border shipments. This field is limited to 50 charaters. Mandatory for shipments exporting from China, must be in Chinese characters.', 'dhl-for-woocommerce'),
 					'desc_tip' => 'true',
 					'placeholder' => 'Product export description...',
-					'custom_attributes'	=> array('maxlength' => '50')
+					'custom_attributes' => array('maxlength' => '50')
 				)
 			);
 		}
@@ -73,14 +69,12 @@ if (!class_exists('PR_DHL_WC_Product_eCS_Asia')) :
 		{
 
 			//Country of manufacture
-			if (isset($_POST['_dhl_dangerous_goods']))
-			{
+			if (isset($_POST['_dhl_dangerous_goods'])) {
 				update_post_meta($post_id, '_dhl_dangerous_goods', wc_clean($_POST['_dhl_dangerous_goods']));
 			}
 
 			//HS code value
-			if (isset($_POST['_dhl_export_description']))
-			{
+			if (isset($_POST['_dhl_export_description'])) {
 				update_post_meta($post_id, '_dhl_export_description', wc_clean($_POST['_dhl_export_description']));
 			}
 		}

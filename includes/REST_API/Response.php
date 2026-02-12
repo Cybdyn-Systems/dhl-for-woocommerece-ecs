@@ -9,7 +9,8 @@ use stdClass;
  *
  * @since [*next-version*]
  */
-class Response {
+class Response
+{
 	/**
 	 * The request that was sent.
 	 *
@@ -54,23 +55,24 @@ class Response {
 	/**
 	 * Constructor.
 	 *
+	 * @param Request $request The request that was sent.
+	 * @param int $status The status code of the response.
+	 * @param string $body The body of the response.
+	 * @param array $headers The response headers.
+	 * @param array $cookies The response cookies.
 	 * @since [*next-version*]
 	 *
-	 * @param Request $request The request that was sent.
-	 * @param int     $status  The status code of the response.
-	 * @param string  $body    The body of the response.
-	 * @param array   $headers The response headers.
-	 * @param array   $cookies The response cookies.
 	 */
 	public function __construct(
 		Request $request,
-		$status,
-		$body,
-		array $headers = array(),
-		array $cookies = array()
-	) {
+				$status,
+				$body,
+		array   $headers = array(),
+		array   $cookies = array()
+	)
+	{
 		$this->request = $request;
-		$this->status = (int) $status;
+		$this->status = (int)$status;
 		$this->body = $body;
 		$this->headers = $headers;
 		$this->cookies = $cookies;

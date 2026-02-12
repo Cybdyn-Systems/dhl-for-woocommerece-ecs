@@ -1,7 +1,6 @@
 <?php
 
-if (!defined('ABSPATH'))
-{
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 
@@ -48,8 +47,7 @@ if (!class_exists('PR_DHL_WC_Product')) :
 
 			$screen = get_current_screen();
 
-			if ('edit-product' == $screen->id)
-			{
+			if ('edit-product' == $screen->id) {
 
 				wp_enqueue_script(
 					'wc-shipment-dhl-product-list-js',
@@ -85,7 +83,7 @@ if (!class_exists('PR_DHL_WC_Product')) :
 					'description' => $manufacture_tip,
 					'desc_tip' => 'true',
 					/*'value' => $country_value,*/
-					'options'    => $countries
+					'options' => $countries
 				)
 			);
 
@@ -107,14 +105,13 @@ if (!class_exists('PR_DHL_WC_Product')) :
 
 			$countries = WC()->countries->get_countries();
 			$countries = array_merge(array('0' => __('- No change -', 'dhl-for-woocommerce')), $countries);
-?>
+			?>
 			<div class="inline-edit-group dhl_manufacture_country_inline">
 				<label class="alignleft">
 					<span class="title"><?php _e('Country of Manufacture (DHL)', 'dhl-for-woocommerce'); ?></span>
 					<span class="input-text-wrap">
 						<select class="change_dhl_manufacture_country change_to" name="change_dhl_manufacture_country">
-							<?php foreach ($countries as $value => $text)
-							{ ?>
+							<?php foreach ($countries as $value => $text) { ?>
 								<option value="<?php echo esc_attr($value); ?>"><?php echo esc_html($text); ?></option>
 							<?php } ?>
 						</select>
@@ -134,20 +131,19 @@ if (!class_exists('PR_DHL_WC_Product')) :
 		}
 
 		abstract public function get_manufacture_tooltip();
+
 		abstract public function additional_product_settings();
 
 		public function save_additional_product_shipping_options($post_id)
 		{
 
 			//Country of manufacture
-			if (isset($_POST['_dhl_manufacture_country']))
-			{
+			if (isset($_POST['_dhl_manufacture_country'])) {
 				update_post_meta($post_id, '_dhl_manufacture_country', wc_clean($_POST['_dhl_manufacture_country']));
 			}
 
 			//HS code value
-			if (isset($_POST['_dhl_hs_code']))
-			{
+			if (isset($_POST['_dhl_hs_code'])) {
 				update_post_meta($post_id, '_dhl_hs_code', wc_clean($_POST['_dhl_hs_code']));
 			}
 
@@ -157,31 +153,30 @@ if (!class_exists('PR_DHL_WC_Product')) :
 		public function save_product_shipping_bulk_edit($product)
 		{
 			$post_id = $product->get_id();
-			if (!empty($_REQUEST['change_dhl_hs_code']))
-			{
+			if (!empty($_REQUEST['change_dhl_hs_code'])) {
 				update_post_meta($post_id, '_dhl_hs_code', wc_clean($_REQUEST['change_dhl_hs_code']));
 			}
 
-			if (isset($_REQUEST['change_dhl_manufacture_country']) && '0' != $_REQUEST['change_dhl_manufacture_country'])
-			{
+			if (isset($_REQUEST['change_dhl_manufacture_country']) && '0' != $_REQUEST['change_dhl_manufacture_country']) {
 				update_post_meta($post_id, '_dhl_manufacture_country', wc_clean($_REQUEST['change_dhl_manufacture_country']));
 			}
 		}
 
 		public function product_shipping_hidden_input_value($column, $post_id)
 		{
-			switch ($column)
-			{
+			switch ($column) {
 				case 'name':
 
-			?>
+					?>
 					<div class="hidden dhl_hs_code_inline" id="dhl_hs_code_inline_<?php echo $post_id; ?>">
 						<div id="dhl_hs_code"><?php echo get_post_meta($post_id, '_dhl_hs_code', true); ?></div>
 					</div>
-					<div class="hidden dhl_manufacture_country_inline" id="dhl_manufacture_country_inline_<?php echo $post_id; ?>">
-						<div id="dhl_manufacture_country"><?php echo get_post_meta($post_id, '_dhl_manufacture_country', true); ?></div>
+					<div class="hidden dhl_manufacture_country_inline"
+						 id="dhl_manufacture_country_inline_<?php echo $post_id; ?>">
+						<div
+							id="dhl_manufacture_country"><?php echo get_post_meta($post_id, '_dhl_manufacture_country', true); ?></div>
 					</div>
-<?php
+					<?php
 
 					break;
 

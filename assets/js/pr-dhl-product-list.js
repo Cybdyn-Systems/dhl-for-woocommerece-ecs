@@ -1,5 +1,5 @@
-jQuery(function () {
-	jQuery('#the-list').on('click', '.editinline', function () {
+jQuery(function() {
+	jQuery('#the-list').on('click', '.editinline', function() {
 		/**
 		 * Extract metadata and put it as the value for the custom field form
 		 */
@@ -11,20 +11,20 @@ jQuery(function () {
 
 		var dhl_hs_code_inline_data = jQuery('#dhl_hs_code_inline_' + post_id),
 			dhl_hs_manuf_country_inline_data = jQuery(
-				'#dhl_manufacture_country_inline_' + post_id
+				'#dhl_manufacture_country_inline_' + post_id,
 			),
 			$wc_inline_data = jQuery('#woocommerce_inline_' + post_id);
 
 		jQuery('input[name="change_dhl_hs_code"]', '.inline-edit-row').val(
-			dhl_hs_code_inline_data.find('#dhl_hs_code').text()
+			dhl_hs_code_inline_data.find('#dhl_hs_code').text(),
 		);
 		console.log(
-			dhl_hs_manuf_country_inline_data.find('#dhl_manufacture_country').text()
+			dhl_hs_manuf_country_inline_data.find('#dhl_manufacture_country').text(),
 		);
 		jQuery(
 			'select.change_dhl_manufacture_country option',
-			'.inline-edit-row'
-		).each(function () {
+			'.inline-edit-row',
+		).each(function() {
 			jQuery(this).removeAttr('selected');
 
 			if (

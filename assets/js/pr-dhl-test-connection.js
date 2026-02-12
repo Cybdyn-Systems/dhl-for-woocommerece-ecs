@@ -26,7 +26,7 @@ function dhlTestConnection(btn_id) {
 	};
 
 	// We can also pass the url value separately from ajaxurl for front end AJAX implementations
-	$.post(dhl_test_con_obj.ajax_url, data, function (response) {
+	$.post(dhl_test_con_obj.ajax_url, data, function(response) {
 		btn.attr('disabled', false);
 		btn.text(response.button_txt);
 		loaderContainer.remove();

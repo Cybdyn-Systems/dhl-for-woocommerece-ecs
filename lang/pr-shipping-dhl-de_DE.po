@@ -5296,255 +5296,255 @@ msgstr "Fr"
 msgid "sat"
 msgstr "Sa"
 
-#: states/VN.php:12
+#: states/vietnam.php:12
 msgid "An Giang"
 msgstr ""
 
-#: states/VN.php:13
+#: states/vietnam.php:13
 msgid "Bà Rịa–Vũng Tàu"
 msgstr ""
 
-#: states/VN.php:14
+#: states/vietnam.php:14
 msgid "Bắc Giang"
 msgstr ""
 
-#: states/VN.php:15
+#: states/vietnam.php:15
 msgid "Bắc Kạn"
 msgstr ""
 
-#: states/VN.php:16
+#: states/vietnam.php:16
 msgid "Bạc Liêu"
 msgstr ""
 
-#: states/VN.php:17
+#: states/vietnam.php:17
 msgid "Bắc Ninh"
 msgstr ""
 
-#: states/VN.php:18
+#: states/vietnam.php:18
 msgid "Bến Tre"
 msgstr ""
 
-#: states/VN.php:19
+#: states/vietnam.php:19
 msgid "Bình Định"
 msgstr ""
 
-#: states/VN.php:20
+#: states/vietnam.php:20
 msgid "Bình Dương"
 msgstr ""
 
-#: states/VN.php:21
+#: states/vietnam.php:21
 msgid "Bình Phước"
 msgstr ""
 
-#: states/VN.php:22
+#: states/vietnam.php:22
 msgid "Bình Thuận"
 msgstr ""
 
-#: states/VN.php:23
+#: states/vietnam.php:23
 msgid "Cà Mau"
 msgstr ""
 
-#: states/VN.php:24
+#: states/vietnam.php:24
 msgid "Cần Thơ"
 msgstr ""
 
-#: states/VN.php:25
+#: states/vietnam.php:25
 msgid "Cao Bằng"
 msgstr ""
 
-#: states/VN.php:26
+#: states/vietnam.php:26
 msgid "Đà Nẵng"
 msgstr ""
 
-#: states/VN.php:27
+#: states/vietnam.php:27
 msgid "Đắk Lắk"
 msgstr ""
 
-#: states/VN.php:28
+#: states/vietnam.php:28
 msgid "Đắk Nông"
 msgstr ""
 
-#: states/VN.php:29
+#: states/vietnam.php:29
 msgid "Điện Biên"
 msgstr ""
 
-#: states/VN.php:30
+#: states/vietnam.php:30
 msgid "Đồng Nai"
 msgstr ""
 
-#: states/VN.php:31
+#: states/vietnam.php:31
 msgid "Đồng Tháp"
 msgstr ""
 
-#: states/VN.php:32
+#: states/vietnam.php:32
 msgid "Gia Lai"
 msgstr ""
 
-#: states/VN.php:33
+#: states/vietnam.php:33
 msgid "Hà Giang"
 msgstr ""
 
-#: states/VN.php:34
+#: states/vietnam.php:34
 msgid "Hà Nam"
 msgstr ""
 
-#: states/VN.php:35
+#: states/vietnam.php:35
 msgid "Hà Nội"
 msgstr ""
 
-#: states/VN.php:36
+#: states/vietnam.php:36
 msgid "Hà Tĩnh"
 msgstr ""
 
-#: states/VN.php:37
+#: states/vietnam.php:37
 msgid "Hải Dương"
 msgstr ""
 
-#: states/VN.php:38
+#: states/vietnam.php:38
 msgid "Hải Phòng"
 msgstr ""
 
-#: states/VN.php:39
+#: states/vietnam.php:39
 msgid "Hậu Giang"
 msgstr ""
 
-#: states/VN.php:40
+#: states/vietnam.php:40
 msgid "Hồ Chí Minh"
 msgstr ""
 
-#: states/VN.php:41
+#: states/vietnam.php:41
 msgid "Hòa Bình"
 msgstr ""
 
-#: states/VN.php:42
+#: states/vietnam.php:42
 msgid "Hưng Yên"
 msgstr ""
 
-#: states/VN.php:43
+#: states/vietnam.php:43
 msgid "Khánh Hòa"
 msgstr ""
 
-#: states/VN.php:44
+#: states/vietnam.php:44
 msgid "Kiên Giang"
 msgstr ""
 
-#: states/VN.php:45
+#: states/vietnam.php:45
 msgid "Kon Tum"
 msgstr ""
 
-#: states/VN.php:46
+#: states/vietnam.php:46
 msgid "Lai Châu"
 msgstr ""
 
-#: states/VN.php:47
+#: states/vietnam.php:47
 msgid "Lâm Đồng"
 msgstr ""
 
-#: states/VN.php:48
+#: states/vietnam.php:48
 msgid "Lạng Sơn"
 msgstr ""
 
-#: states/VN.php:49
+#: states/vietnam.php:49
 msgid "Lào Cai"
 msgstr ""
 
-#: states/VN.php:50
+#: states/vietnam.php:50
 msgid "Long An"
 msgstr ""
 
-#: states/VN.php:51
+#: states/vietnam.php:51
 msgid "Nam Định"
 msgstr ""
 
-#: states/VN.php:52
+#: states/vietnam.php:52
 msgid "Nghệ An"
 msgstr ""
 
-#: states/VN.php:53
+#: states/vietnam.php:53
 msgid "Ninh Bình"
 msgstr ""
 
-#: states/VN.php:54
+#: states/vietnam.php:54
 msgid "Ninh Thuận"
 msgstr ""
 
-#: states/VN.php:55
+#: states/vietnam.php:55
 msgid "Phú Thọ"
 msgstr ""
 
-#: states/VN.php:56
+#: states/vietnam.php:56
 msgid "Phú Yên"
 msgstr ""
 
-#: states/VN.php:57
+#: states/vietnam.php:57
 msgid "Quảng Bình"
 msgstr ""
 
-#: states/VN.php:58
+#: states/vietnam.php:58
 msgid "Quảng Nam"
 msgstr ""
 
-#: states/VN.php:59
+#: states/vietnam.php:59
 msgid "Quảng Ngãi"
 msgstr ""
 
-#: states/VN.php:60
+#: states/vietnam.php:60
 msgid "Quảng Ninh"
 msgstr ""
 
-#: states/VN.php:61
+#: states/vietnam.php:61
 msgid "Quảng Trị"
 msgstr ""
 
-#: states/VN.php:62
+#: states/vietnam.php:62
 msgid "Sóc Trăng"
 msgstr ""
 
-#: states/VN.php:63
+#: states/vietnam.php:63
 msgid "Sơn La"
 msgstr ""
 
-#: states/VN.php:64
+#: states/vietnam.php:64
 msgid "Tây Ninh"
 msgstr ""
 
-#: states/VN.php:65
+#: states/vietnam.php:65
 msgid "Thái Bình"
 msgstr ""
 
-#: states/VN.php:66
+#: states/vietnam.php:66
 msgid "Thái Nguyên"
 msgstr ""
 
-#: states/VN.php:67
+#: states/vietnam.php:67
 msgid "Thanh Hóa"
 msgstr ""
 
-#: states/VN.php:68
+#: states/vietnam.php:68
 msgid "Thừa Thiên–Huế"
 msgstr ""
 
-#: states/VN.php:69
+#: states/vietnam.php:69
 msgid "Tiền Giang"
 msgstr ""
 
-#: states/VN.php:70
+#: states/vietnam.php:70
 msgid "Trà Vinh"
 msgstr ""
 
-#: states/VN.php:71
+#: states/vietnam.php:71
 msgid "Tuyên Quang"
 msgstr ""
 
-#: states/VN.php:72
+#: states/vietnam.php:72
 msgid "Vĩnh Long"
 msgstr ""
 
-#: states/VN.php:73
+#: states/vietnam.php:73
 msgid "Vĩnh Phúc"
 msgstr ""
 
-#: states/VN.php:74
+#: states/vietnam.php:74
 msgid "Yên Bái"
 msgstr ""
 

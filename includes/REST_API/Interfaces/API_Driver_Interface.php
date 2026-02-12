@@ -30,17 +30,18 @@ use RuntimeException;
  * @see Response
  * @see API_Client
  */
-interface API_Driver_Interface {
+interface API_Driver_Interface
+{
 	/**
 	 * Sends a generic request to the REST API.
-	 *
-	 * @since [*next-version*]
 	 *
 	 * @param Request $request The request to send.
 	 *
 	 * @return Response The response.
 	 *
 	 * @throws RuntimeException If an error occurred and the request could not be sent.
+	 * @since [*next-version*]
+	 *
 	 */
-	public function send( Request $request );
+	public function send(Request $request);
 }

@@ -1,7 +1,6 @@
 <?php
 
-if (!defined('ABSPATH'))
-{
+if (!defined('ABSPATH')) {
 	exit;
 } // Exit if accessed directly
 
@@ -32,8 +31,7 @@ class PR_DHL_Logger
 	{
 
 		// Check if debug is on
-		if ('yes' === $this->debug)
-		{
+		if ('yes' === $this->debug) {
 			return true;
 		}
 
@@ -49,8 +47,7 @@ class PR_DHL_Logger
 	{
 
 		// Check if enabled
-		if ($this->is_enabled())
-		{
+		if ($this->is_enabled()) {
 
 			// Logger object
 			$wc_logger = new WC_Logger();

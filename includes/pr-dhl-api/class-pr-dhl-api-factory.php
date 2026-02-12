@@ -1,23 +1,26 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 } // Exit if accessed directly
 
 
-class PR_DHL_API_Factory {
+class PR_DHL_API_Factory
+{
 
-	public static function init() {
+	public static function init()
+	{
 		// Load abstract classes
-		include_once( 'abstract-pr-dhl-api.php' );
+		include_once('abstract-pr-dhl-api.php');
 	}
 
-	public static function make_dhl( $country_code ) {
+	public static function make_dhl($country_code)
+	{
 		static $cache = array();
 
 		// If object exists in cache, simply return it
-		if ( array_key_exists( $country_code, $cache ) ) {
-			return $cache[ $country_code ];
+		if (array_key_exists($country_code, $cache)) {
+			return $cache[$country_code];
 		}
 
 		PR_DHL_API_Factory::init();
@@ -33,7 +36,7 @@ class PR_DHL_API_Factory {
 				case 'UM':
 				case 'VI':
 				case 'CA':
-                    throw new Exception( __('The DHL plugin is not supported in your store\'s "Base Location"', 'dhl-for-woocommerce') );
+					throw new Exception(__('The DHL plugin is not supported in your store\'s "Base Location"', 'dhl-for-woocommerce'));
 				case 'SG':
 				case 'HK':
 				case 'TH':
@@ -42,10 +45,10 @@ class PR_DHL_API_Factory {
 				case 'VN':
 				case 'AU':
 				case 'IN':
-					$dhl_obj = new PR_DHL_API_eCS_Asia( $country_code );
+					$dhl_obj = new PR_DHL_API_eCS_Asia($country_code);
 					break;
 				case 'DE':
-                case 'AT':
+				case 'AT':
 				case 'AL':
 				case 'AD':
 				case 'AM':
@@ -95,14 +98,14 @@ class PR_DHL_API_Factory {
 				case 'GB':
 				case 'VA':
 				default:
-					throw new Exception( __('The DHL plugin is not supported in your store\'s "Base Location"', 'dhl-for-woocommerce') );
+					throw new Exception(__('The DHL plugin is not supported in your store\'s "Base Location"', 'dhl-for-woocommerce'));
 			}
 		} catch (Exception $e) {
 			throw $e;
 		}
 
 		// Cache the object to optimize later invocations of the factory
-		$cache[ $country_code ] = $dhl_obj;
+		$cache[$country_code] = $dhl_obj;
 
 		return $dhl_obj;
 	}

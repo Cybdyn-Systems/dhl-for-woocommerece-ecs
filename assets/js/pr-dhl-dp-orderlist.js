@@ -1,21 +1,21 @@
-(function ($) {
+(function($) {
 	var wc_dhl_dp_order_lists = {
 		// init Class
-		init: function () {
+		init: function() {
 			$('#posts-filter').on(
 				'change',
 				'#bulk-action-selector-top',
-				this.toggle_awb_copy_count
+				this.toggle_awb_copy_count,
 			);
 
 			this.update();
 		},
 
-		update: function () {
+		update: function() {
 			$('.dhl-awb-filter-container').hide();
 		},
 
-		toggle_awb_copy_count: function (evt) {
+		toggle_awb_copy_count: function(evt) {
 			evt.preventDefault();
 
 			var value = jQuery(this).val();

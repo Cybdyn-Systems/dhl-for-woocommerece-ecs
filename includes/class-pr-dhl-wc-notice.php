@@ -1,7 +1,6 @@
 <?php
 
-if (!defined('ABSPATH'))
-{
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
 }
 
@@ -51,17 +50,18 @@ if (!class_exists('PR_DHL_WC_Notice')) :
 		public function dhl_optin_notice()
 		{
 			// Message NOT dismissed AND user NOT opted in...show notice
-			if (!get_transient('dhl_dismiss_notice') && !get_option('dhl_user_optedin'))
-			{
-?>
+			if (!get_transient('dhl_dismiss_notice') && !get_option('dhl_user_optedin')) {
+				?>
 				<div id="dhl-optin-notice" class="notice notice-warning is-dismissible">
 					<form class="dhl-optin-notice-form" action="" method="post">
-						<label for="dhl-optin-user"><?php _e('Would you like DHL to contact you to help setup the Official DHL plugin?', 'dhl-for-woocommerce'); ?></label>
+						<label
+							for="dhl-optin-user"><?php _e('Would you like DHL to contact you to help setup the Official DHL plugin?', 'dhl-for-woocommerce'); ?></label>
 						<input name="dhl-optin-user" type="hidden" value="1" />
-						<input class="button-primary" type="submit" value="<?php _e('Yes', 'dhl-for-woocommerce'); ?>" />
+						<input class="button-primary" type="submit"
+							   value="<?php _e('Yes', 'dhl-for-woocommerce'); ?>" />
 					</form>
 				</div>
-<?php
+				<?php
 			}
 		}
 
@@ -77,16 +77,12 @@ if (!class_exists('PR_DHL_WC_Notice')) :
 		public function dhl_optin_user()
 		{
 
-			if (isset($_POST['dhl-optin-user']))
-			{
+			if (isset($_POST['dhl-optin-user'])) {
 
 				$current_user = wp_get_current_user();
-				if (empty($current_user->user_firstname) && empty($current_user->user_lastname))
-				{
+				if (empty($current_user->user_firstname) && empty($current_user->user_lastname)) {
 					$email_name = $current_user->user_login;
-				}
-				else
-				{
+				} else {
 					$email_name = $current_user->user_firstname . ' ' . $current_user->user_lastname;
 				}
 
@@ -94,8 +90,7 @@ if (!class_exists('PR_DHL_WC_Notice')) :
 				$message = __('Please contact me to help me setup the plugin.', 'dhl-for-woocommerce');
 				$headers[] = 'From: ' . $email_name . ' <' . $current_user->user_email . '>';
 				// send email to 'integration@dhl.com'
-				if (!wp_mail('wp@progressus.io', $subject, $message, $headers))
-				{
+				if (!wp_mail('wp@progressus.io', $subject, $message, $headers)) {
 					PR_DHL()->log_msg('Email failure: DHL notice "wp_mail" failed to send');
 				}
 

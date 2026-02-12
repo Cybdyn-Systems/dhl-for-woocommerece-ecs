@@ -67,23 +67,23 @@ body table,
 
 .dhl-co-tr td:first-child,
 .woocommerce-page.woocommerce-checkout
-	table.shop_table
-	.dhl-co-tr
-	td:first-child,
+table.shop_table
+.dhl-co-tr
+td:first-child,
 .woocommerce-page.woocommerce-checkout
-	form
-	#order_review
-	.dhl-co-tr
-	td:first-child {
+form
+#order_review
+.dhl-co-tr
+td:first-child {
 	padding-left: 15px;
 	font-weight: normal;
 }
 
 .dhl-co-tr td:last-child,
 .woocommerce-page.woocommerce-checkout
-	table.shop_table
-	.dhl-co-tr
-	td:last-child {
+table.shop_table
+.dhl-co-tr
+td:last-child {
 	padding-right: 15px;
 }
 
@@ -128,11 +128,11 @@ ul.dhl-co-preffered-time > li {
 
 .woocommerce #order_review table.shop_table ul.dhl-co-times > li label,
 .woocommerce
-	#order_review
-	table.shop_table
-	ul.dhl-co-preffered-time
-	> li
-	label {
+#order_review
+table.shop_table
+ul.dhl-co-preffered-time
+> li
+label {
 	display: block;
 }
 
@@ -361,6 +361,7 @@ a#dhl_parcel_finder:hover {
 		min-width: 30%;
 		width: 30%;
 	}
+
 	#dhl_parcel_finder_form form .form-field.small,
 	#dhl_parcel_finder_form form .form-field.large {
 		width: 100%;

@@ -8,16 +8,17 @@ use PR\DHL\REST_API\Response;
 use PR_DHL_WC;
 
 /**
-* A REST API driver decorator that automatically logs requests and responses.
+ * A REST API driver decorator that automatically logs requests and responses.
  *
  * This is a REST API driver DECORATOR class, which means that it is not a standalone driver but instead decorates
-* another driver. It does so to log the parameters and return values of the "inner" driver.
+ * another driver. It does so to log the parameters and return values of the "inner" driver.
  *
  * @since [*next-version*]
  *
  * @see API_Driver_Interface
-*/
-class Logging_Driver implements API_Driver_Interface {
+ */
+class Logging_Driver implements API_Driver_Interface
+{
 	/**
 	 * The plugin instance.
 	 *
@@ -39,12 +40,13 @@ class Logging_Driver implements API_Driver_Interface {
 	/**
 	 * Constructor.
 	 *
-	 * @since [*next-version*]
-	 *
 	 * @param PR_DHL_WC $plugin The plugin instance to use for logging.
 	 * @param API_Driver_Interface $driver The driver instance to decorate.
+	 * @since [*next-version*]
+	 *
 	 */
-	public function __construct( PR_DHL_WC $plugin, API_Driver_Interface $driver ) {
+	public function __construct(PR_DHL_WC $plugin, API_Driver_Interface $driver)
+	{
 		$this->plugin = $plugin;
 		$this->driver = $driver;
 	}
@@ -57,15 +59,16 @@ class Logging_Driver implements API_Driver_Interface {
 	 *
 	 * @since [*next-version*]
 	 */
-	public function send( Request $request ) {
+	public function send(Request $request)
+	{
 		// Log the request
-		$this->log_request( 'Request:', $request );
+		$this->log_request('Request:', $request);
 
 		// Send the request using the inner driver
-		$response = $this->driver->send( $request );
+		$response = $this->driver->send($request);
 
 		// Log the response
-		$this->log_response( 'Response:', $response );
+		$this->log_response('Response:', $response);
 
 		// Return the response from the inner driver
 		return $response;
@@ -74,12 +77,13 @@ class Logging_Driver implements API_Driver_Interface {
 	/**
 	 * Logs a request.
 	 *
-	 * @since [*next-version*]
-	 *
 	 * @param string $message Prefix message to include in the log.
 	 * @param Request $request The request to log.
+	 * @since [*next-version*]
+	 *
 	 */
-	protected function log_request( $message, Request $request ) {
+	protected function log_request($message, Request $request)
+	{
 		$request_info = array(
 			'type' => $this->get_request_type_name($request->type),
 			'url' => $request->url,
@@ -89,19 +93,20 @@ class Logging_Driver implements API_Driver_Interface {
 			'cookies' => $request->cookies,
 		);
 
-		$this->plugin->log_msg( sprintf( '%s %s', $message, print_r( $request_info, true ) ) );
+		$this->plugin->log_msg(sprintf('%s %s', $message, print_r($request_info, true)));
 	}
 
 	/**
 	 * Logs a response.
 	 *
-	 * @since [*next-version*]
-	 *
 	 * @param string $message Prefix message to include in the log.
 	 * @param Response $response The response to log.
+	 * @since [*next-version*]
+	 *
 	 */
-	protected function log_response( $message, Response $response ) {
-		$body = ( isset($response->headers['Content-Type']) && ($response->headers['Content-Type'] === 'application/pdf') )
+	protected function log_response($message, Response $response)
+	{
+		$body = (isset($response->headers['Content-Type']) && ($response->headers['Content-Type'] === 'application/pdf'))
 			? '[PDF data]'
 			: $response->body;
 
@@ -112,19 +117,20 @@ class Logging_Driver implements API_Driver_Interface {
 			'cookies' => $response->cookies,
 		);
 
-		$this->plugin->log_msg( sprintf( '%s %s', $message, print_r( $response_info, true ) ) );
+		$this->plugin->log_msg(sprintf('%s %s', $message, print_r($response_info, true)));
 	}
 
 	/**
 	 * Retrieves the name for a request type.
 	 *
-	 * @since [*next-version*]
-	 *
 	 * @param int $type The request type. See the constants in the {@link Request} class.
 	 *
 	 * @return string|int The name of the request type, or the parameter if the request type is unknown.
+	 * @since [*next-version*]
+	 *
 	 */
-	protected function get_request_type_name( $type) {
+	protected function get_request_type_name($type)
+	{
 		if ($type === Request::TYPE_GET) {
 			return 'GET';
 		}
