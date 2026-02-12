@@ -50,9 +50,10 @@ For more detailed instructions on how to set up your store and configure the plu
 ## 📝 Changelog
 
 ### Version 1.1.3
-- **Fix:** Style improvements
-- **Fix:** README.md overhauled
-- **Fix:** Fixed a bug that prevented Canadian shipments from being created
+- **Fix:** PHPStorm reformatted the codebase using the included .editorconfig.
+- **Fix:** README.md overhauled.
+- **Fix:** Fixed a bug that prevented Canadian shipments from being created.
+- **Fix:** Outdated URL's updated.
 
 ### Version 1.1.2
 - **Fix** Style improvements.
@@ -60,14 +61,14 @@ For more detailed instructions on how to set up your store and configure the plu
 - **Fix** Grammar improvements.
 
 ### Version 1.1.1
-- **Fix:** Authorization error resolution
+- **Fix:** Authorization error resolution.
 
 ### Version 1.1.0
-- **Add:** Send company name to the REST API
-- **Fix:** JSON decode fatal error
+- **Add:** Send the company name to the REST API.
+- **Fix:** JSON decode fatal error.
 
 ### Version 1.0
-- **Release:** Initial public release
+- **Release:** Initial public release.
 
 ## 📜 Licenses
 **Barcode** support (C) 2013 David S. Tufts (MIT License).
