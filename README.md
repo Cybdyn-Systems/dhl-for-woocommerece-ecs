@@ -10,13 +10,13 @@ The official DHL for WooCommerce eCommerce plugin allows you to automate your la
 ## 📋 Plugin Information
 
 - **Contributors:** DHL, Shadim & Cybdyn Systems
-- **Requires WordPress:** 4.1 or higher
-- **Requires PHP:** 5.6 or higher
+- **Requires WordPress:** 4.1 (or higher)
+- **Requires PHP:** 5.6 (or higher)
 - **Tested up to WordPress:** 6.8.3
-- **WooCommerce requires:** 3.0 or higher
-- **WooCommerce tested up to:** 10.0.5
-- **License:** GPLV2
-- **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
+- **Tested up to WooCommerce:** 10.0.5
+- **WooCommerce Requires:** 3.0 (or higher)
+- **License:** GPLV3
+- **License URI:** https://www.gnu.org/licenses/gpl-3.0.html
 
 ## 📖 Description
 
